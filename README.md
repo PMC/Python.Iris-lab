@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">Iris Dataset Classifier-lab</h3>
+  <h1 align="center">Iris Dataset Classifier-lab</h3>
 
   <p align="center">
     A Python project for training and testing machine learning models on the Iris dataset.
