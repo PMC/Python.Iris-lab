@@ -6,7 +6,6 @@ from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
 import numpy as np
 
-
 data = pd.read_csv("iris.csv")
 
 # Separate features (X) and labels (y)
