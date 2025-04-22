@@ -1,0 +1,12 @@
+[project]
+name = "python-test"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.7.1"
+dependencies = [
+    "keras>=2.9.2",
+    "pandas>=1.2.3",
+    "sequential>=1.0.0",
+    "sync>=1.0.0",
+]

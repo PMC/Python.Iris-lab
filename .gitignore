@@ -1,0 +1,12 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+tensorflow_intel-2.18.0-cp310-cp310-win_amd64.whl
+uv.lock
