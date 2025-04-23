@@ -44,7 +44,7 @@ X_test_subset = X_test
 predictions = model.predict(X_test_subset)
 
 data_variety = np.array([["Setosa"], ["Versicolor"], ["Virginica"]])
-print("-" * 100)
+print(":heavy_minus_sign:" * 47)
 # Iterate through the predictions and get the expected variety
 for i in range(len(predictions)):
     variety = data.iloc[X_test_subset.index[i]]["variety"]
@@ -58,5 +58,5 @@ for i in range(len(predictions)):
         f"{checkmark} - Sample {i + 1:03d}: Predictions: {predictions[i]}, Expected: {indices[0][0]} - {variety}"
     )
 
-print("-" * 100)
+print(":heavy_minus_sign:" * 47)
 print(f"Test loss: {result[0]} / Test accuracy: {result[1]}")
