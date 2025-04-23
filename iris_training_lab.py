@@ -40,10 +40,11 @@ print("-" * 30)
 result = model.evaluate(X_test, y_test)
 
 # slice test data to get the first x rows
-X_test_subset = X_test[:10]
+X_test_subset = X_test
 predictions = model.predict(X_test_subset)
 
 data_variety = np.array([["Setosa"], ["Versicolor"], ["Virginica"]])
+print("-" * 100)
 # Iterate through the predictions and get the expected variety
 for i in range(len(predictions)):
     variety = data.iloc[X_test_subset.index[i]]["variety"]
@@ -57,7 +58,5 @@ for i in range(len(predictions)):
         f"{checkmark} - Sample {i + 1:03d}: Predictions: {predictions[i]}, Expected: {indices[0][0]} - {variety}"
     )
 
-    # print(f" argmax: {np.argmax(predictions[i])}")
-
-
+print("-" * 100)
 print(f"Test loss: {result[0]} / Test accuracy: {result[1]}")
