@@ -29,7 +29,7 @@ model = keras.Model(inputs=inputs, outputs=outputs)
 model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
 # Fit the model
-history = model.fit(X_train, y_train, epochs=200, validation_data=(X_test, y_test))
+history = model.fit(X_train, y_train, epochs=80, validation_data=(X_test, y_test))
 
 model.save("iris_model_hot.keras")
 
@@ -48,9 +48,16 @@ data_variety = np.array([["Setosa"], ["Versicolor"], ["Virginica"]])
 for i in range(len(predictions)):
     variety = data.iloc[X_test_subset.index[i]]["variety"]
     indices = np.where(data_variety == variety)
+    highest_index = np.argmax(predictions[i])
+    if highest_index == indices[0][0]:
+        checkmark = "[green] :heavy_check_mark:"
+    else:
+        checkmark = "[red] :double_exclamation_mark:"
     print(
-        f"Sample {i + 1}: Predictions: {predictions[i]}, Expected: {indices[0][0]} - {variety}"
+        f"{checkmark} - Sample {i + 1:03d}: Predictions: {predictions[i]}, Expected: {indices[0][0]} - {variety}"
     )
+
+    # print(f" argmax: {np.argmax(predictions[i])}")
 
 
 print(f"Test loss: {result[0]} / Test accuracy: {result[1]}")
