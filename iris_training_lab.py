@@ -1,5 +1,6 @@
 from rich import print
 import keras
+
 from keras.layers import Input, Dense
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
@@ -18,6 +19,15 @@ y = OneHotEncoder(sparse_output=False).fit_transform(y.values.reshape(-1, 1))
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
+# check if testdata has enough variety (atleast 25% of each variety)
+unique_rows, counts = np.unique(y_test, axis=0, return_counts=True)
+percentages = (counts / y_test.shape[0]) * 100
+if np.any(percentages <= 25):
+    print(
+        ":stop_sign: Test data must have atleast 25% variety, aborting! :space_invader: :space_invader:"
+    )
+    exit(1)
+
 inputs = Input(shape=(4,), name="input")
 layer_x = Dense(6, activation="relu", name="dense_1")(inputs)
 layer_x = Dense(4, activation="relu", name="dense_2")(layer_x)
@@ -29,7 +39,9 @@ model = keras.Model(inputs=inputs, outputs=outputs)
 model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
 # Fit the model
-history = model.fit(X_train, y_train, epochs=80, validation_data=(X_test, y_test))
+history = model.fit(
+    X_train, y_train, epochs=80, validation_data=(X_test, y_test), batch_size=8
+)
 
 model.save("iris_model_hot.keras")
 

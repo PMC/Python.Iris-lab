@@ -9,4 +9,8 @@ dependencies = [
     "pandas>=1.2.3",
     "sequential>=1.0.0",
     "sync>=1.0.0",
+    "pydot",
+    "graphviz",
+    "rich",
+    "scikit-learn>=1.0.2",
 ]

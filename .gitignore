@@ -10,3 +10,4 @@ wheels/
 .venv
 tensorflow_intel-2.18.0-cp310-cp310-win_amd64.whl
 uv.lock
+iris_model_hot*
