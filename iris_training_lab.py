@@ -29,8 +29,8 @@ if np.any(percentages <= 25):
     exit(1)
 
 inputs = Input(shape=(4,), name="input")
-layer_x = Dense(6, activation="relu", name="dense_1")(inputs)
-layer_x = Dense(4, activation="relu", name="dense_2")(layer_x)
+layer_x = Dense(64, activation="relu", name="dense_1")(inputs)
+layer_x = Dense(32, activation="relu", name="dense_2")(layer_x)
 outputs = Dense(3, activation="softmax", name="predictions")(layer_x)
 
 model = keras.Model(inputs=inputs, outputs=outputs)
@@ -40,7 +40,7 @@ model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accur
 
 # Fit the model
 history = model.fit(
-    X_train, y_train, epochs=80, validation_data=(X_test, y_test), batch_size=8
+    X_train, y_train, epochs=40, batch_size=32, validation_data=(X_test, y_test)
 )
 
 model.save("iris_model_hot.keras")
@@ -63,11 +63,11 @@ for i in range(len(predictions)):
     indices = np.where(data_variety == variety)
     highest_index = np.argmax(predictions[i])
     if highest_index == indices[0][0]:
-        checkmark = "[green] :heavy_check_mark:"
+        checkmark = "[green]✔️ \t"
     else:
-        checkmark = "[red] :double_exclamation_mark:"
+        checkmark = "[red]:stop_sign: \t"
     print(
-        f"{checkmark} - Sample {i + 1:03d}: Predictions: {predictions[i]}, Expected: {indices[0][0]} - {variety}"
+        f"{checkmark} Sample {i + 1:03d}: Predictions: {predictions[i]}, Expected: {indices[0][0]} - {variety}"
     )
 
 print(":heavy_minus_sign:" * 47)
