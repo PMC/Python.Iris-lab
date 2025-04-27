@@ -1,4 +1,5 @@
 from rich import print
+from rich.console import Console
 import keras
 
 from keras.layers import Input, Dense
@@ -57,15 +58,16 @@ predictions = model.predict(X_test_subset)
 
 data_variety = np.array([["Setosa"], ["Versicolor"], ["Virginica"]])
 print(":heavy_minus_sign:" * 47)
+console = Console()
 # Iterate through the predictions and get the expected variety
 for i in range(len(predictions)):
     variety = data.iloc[X_test_subset.index[i]]["variety"]
     indices = np.where(data_variety == variety)
     highest_index = np.argmax(predictions[i])
     if highest_index == indices[0][0]:
-        checkmark = "[green]✔️ \t"
+        checkmark = "[green]✔️ "
     else:
-        checkmark = "[red]:stop_sign: \t"
+        checkmark = "[red]❌ "
     print(
         f"{checkmark} Sample {i + 1:03d}: Predictions: {predictions[i]}, Expected: {indices[0][0]} - {variety}"
     )
