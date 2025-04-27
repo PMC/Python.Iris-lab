@@ -29,8 +29,8 @@ if np.any(percentages <= 25):
     exit(1)
 
 inputs = Input(shape=(4,), name="input")
-layer_x = Dense(64, activation="relu", name="dense_1")(inputs)
-layer_x = Dense(32, activation="relu", name="dense_2")(layer_x)
+layer_x = Dense(64, activation="relu6", name="dense_1")(inputs)
+layer_x = Dense(32, activation="relu6", name="dense_2")(layer_x)
 outputs = Dense(3, activation="softmax", name="predictions")(layer_x)
 
 model = keras.Model(inputs=inputs, outputs=outputs)
