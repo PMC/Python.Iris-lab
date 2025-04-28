@@ -1,7 +1,5 @@
 from rich import print
-from rich.console import Console
 import keras
-
 from keras.layers import Input, Dense
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
@@ -30,8 +28,8 @@ if np.any(percentages <= 25):
     exit(1)
 
 inputs = Input(shape=(4,), name="input")
-layer_x = Dense(64, activation="relu6", name="dense_1")(inputs)
-layer_x = Dense(32, activation="relu6", name="dense_2")(layer_x)
+layer_x = Dense(16, activation="leaky_relu", name="dense_1")(inputs)
+layer_x = Dense(16, activation="gelu", name="dense_2")(layer_x)
 outputs = Dense(3, activation="softmax", name="predictions")(layer_x)
 
 model = keras.Model(inputs=inputs, outputs=outputs)
@@ -39,9 +37,22 @@ model = keras.Model(inputs=inputs, outputs=outputs)
 # Compile the model
 model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
+# Use callback to maximize accuracy
+my_callback = keras.callbacks.EarlyStopping(
+    patience=15,
+    mode="max",
+    monitor="val_accuracy",
+    start_from_epoch=25,
+    restore_best_weights=True,
+)
+
 # Fit the model
 history = model.fit(
-    X_train, y_train, epochs=40, batch_size=32, validation_data=(X_test, y_test)
+    X_train,
+    y_train,
+    epochs=150,
+    callbacks=my_callback,
+    validation_data=(X_test, y_test),
 )
 
 model.save("iris_model_hot.keras")
@@ -58,7 +69,7 @@ predictions = model.predict(X_test_subset)
 
 data_variety = np.array([["Setosa"], ["Versicolor"], ["Virginica"]])
 print(":heavy_minus_sign:" * 47)
-console = Console()
+
 # Iterate through the predictions and get the expected variety
 for i in range(len(predictions)):
     variety = data.iloc[X_test_subset.index[i]]["variety"]
