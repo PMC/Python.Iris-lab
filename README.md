@@ -44,7 +44,7 @@ This project uses the Iris dataset to train and evaluate machine learning models
 ## Usage
 
    ```sh
-   python iris_training_lab.py
+   uv run iris_training_lab.py
    ```
 
 
