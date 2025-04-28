@@ -39,11 +39,7 @@ model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accur
 
 # Use callback to maximize accuracy
 my_callback = keras.callbacks.EarlyStopping(
-    patience=15,
-    mode="max",
-    monitor="val_accuracy",
-    start_from_epoch=25,
-    restore_best_weights=True,
+    patience=15, mode="max", monitor="val_accuracy", start_from_epoch=25
 )
 
 # Fit the model
